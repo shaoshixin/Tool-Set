@@ -2,6 +2,7 @@ import tkinter as tk
 import OpenFileFrame
 import BuildDBConfigFrame
 import TestUrlFrame
+import TestDataFrame
 
 
 class CreatMain:
@@ -12,6 +13,7 @@ class CreatMain:
         self.main_frm = tk.Frame(self.root)
         self.openfile_frm = OpenFileFrame.OpenFile(self.root)
         self.buildbconfig_frm = BuildDBConfigFrame.XML(self.root)
+        self.testdata_frm = TestDataFrame.TestData(self.root)
         self.testurl_frm = TestUrlFrame.TestUrlFrame(self.root)
 
         self.creatMenu()
@@ -39,9 +41,15 @@ class CreatMain:
         self.spilder_menu.add_command(
             label="接口测试", command=lambda: self.showFrm(self.testurl_frm))
 
+        # 测试数据生成
+        self.testdata_menu = tk.Menu(self.main_menu)
+        self.testdata_menu.add_command(
+            label="测试数据生成", command=lambda: self.showFrm(self.testdata_frm))
+
         # 根menu绑定至menu上
         self.main_menu.add_cascade(label="文件", menu=self.file_menu)
         self.main_menu.add_cascade(label="XML文件生成", menu=self.xml_menu)
+        self.main_menu.add_cascade(label="测试数据生成", menu=self.testdata_menu)
         self.main_menu.add_cascade(label="接口测试", menu=self.spilder_menu)
         self.root.config(menu=self.main_menu)
 
@@ -53,7 +61,7 @@ class CreatMain:
     # Frame切换函数
     def showFrm(self, frame):
         # 所有生成的Frame页面
-        self.frames = [self.main_frm, self.testurl_frm,
+        self.frames = [self.main_frm, self.testurl_frm,self.testdata_frm,
                        self.openfile_frm, self.buildbconfig_frm]
         self.frames.remove(frame)
         for f in self.frames:
